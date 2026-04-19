@@ -1,0 +1,23 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+Data
+Workplan
+R/inputs/gbd_wb_data.RData
+run_usual_model_one.out
+summary_run_usual_model_one.out
+/R/outputs/RData
+R/fnx/test_wrapper_fx.R
+R/fnx/test_wrapper_fx.R
+R/fnx/updated_code.R
+R/fnx/test_wrapper_fx.R
+run_usual_model_two.out
+R/fnx/test_wrapper_fx.R
+/R/archive
+.RDataTmp
+.RDataTmp1
+R/inputs/gbd_dt.RData
+R/inputs/all-param.RData
+R/outputs/age_models_dt.rdb
+Random/Cancer model comparisons.xlsx

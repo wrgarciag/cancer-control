@@ -1,0 +1,37 @@
+
+#------------------------------------------------------------------------------#
+# Cancer Modeling
+#
+# Author: Mohamed Albirair, MBBS, MPH, PhD
+# See README.md for information on usage and licensing
+#------------------------------------------------------------------------------#
+
+#------------------------------------------------------------------------------#
+# Settings file
+# Use this file to set settings for this project and avoid hard-coding paths
+#------------------------------------------------------------------------------#
+
+# Simulation-defining parameters:
+sim_start_year: 2000
+sim_end_year: 2050
+reference_year: 2021
+
+# Paths:
+gbd_pop_folder: "./Data/GBD 2021/Pop"
+gbd_16_ca_folder: "./Data/GBD 2021/16 cancer types"
+gbd_acm_folder: "./Data/GBD 2021/All causes"
+# old_data_folder: ""
+inputs_folder: "./R/inputs"
+
+# Files
+raw_data_file: "./R/inputs/all-param.RData"
+scen_input_file: "./R/inputs/sim_scen_inputs.xlsx"
+
+# External functions (local--not needed unless no internet access!):
+notin: "~/R/GitHub/my-R-functions/R/misc/notin.R"
+caviz_theme: "~/R/GitHub/my-R-functions/R/viz_ggplot/theme_caviz.R"
+report_missing: "~/R/GitHub/my-R-functions/R/misc/report_missing.R"
+prob_to_rate: "~/R/GitHub/my-R-functions/R/epi/prob_to_rate.R"
+rate_to_prob: "~/R/GitHub/my-R-functions/R/epi/rate_to_prob.R"
+explore_rdata: "~/R/GitHub/my-R-functions/R/misc/explore_rdata_obj.R"
+save_rdata_file: "~/R/GitHub/my-R-functions/R/misc/save_rdata.R"
