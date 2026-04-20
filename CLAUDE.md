@@ -18,8 +18,8 @@ Run the project in this order:
 1. **Preprocess data**  
    Run `R/scripts/00_preprocess_data.R` to prepare inherent input parameters and generate baseline objects.
 
-2. **Set scenario assumptions**  
-   Update `intv_scen_inputs.xlsx` (sheet `ui`) with the desired user inputs, including:
+2. **Set scenario assumptions**
+   Update `sim_scen_inputs.xlsx` (sheet `ui`) with the desired user inputs, including:
    - target country,
    - intervention scale-up start year,
    - intervention scale-up end year,
@@ -65,9 +65,13 @@ At minimum, install:
 ```r
 install.packages("tidyverse")
 install.packages("openxlsx")
+install.packages("yaml")   # used by library.R to read settings.yml
+install.packages("curl")   # used by library.R to check internet connectivity
 ```
 
 This project is intended to be run in **RStudio** using the included `.Rproj` file.
+
+`library.R` also loads utility functions from [Mohamed-Albirair/my-R-functions](https://github.com/Mohamed-Albirair/my-R-functions) when internet is available, with local fallback paths defined in `settings.yml`.
 
 ## Expected coding conventions
 When editing this repository:
@@ -97,4 +101,9 @@ Examples of useful support tasks:
 - creating sensitivity-analysis workflows.
 
 ## Notes
-The README references a preprocessed baseline data object named `all-baseline-data.RData` and a linked Google Drive source for downloading it. If the file is not present locally, preprocessing may need to be run first or the baseline file may need to be restored from the documented source.
+- The preprocessed baseline data object is `all-param.RData`, stored at `R/inputs/all-param.RData`. The README also references `all-baseline-data.RData` as an older name — if the file is not present locally, run `00_preprocess_data.R` first or restore from the Google Drive link in the README.
+- The GitHub remote for this repository is: https://github.com/wrgarciag/cancer-control
+
+## Environment notes
+- **Shell**: The bash shell may not function correctly when the project is on a OneDrive path with spaces (Windows/MINGW64). Use the RStudio terminal or run scripts directly in RStudio instead.
+- **Working directory**: Always open the project via `cancer-markov-ccpm.Rproj` in RStudio to ensure the working directory is set correctly to the project root.
