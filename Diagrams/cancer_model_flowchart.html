@@ -80,6 +80,19 @@
     font-weight: 700;
     fill: #1b2631;
   }
+  /* Annotation classes */
+  .fn-text { font-size: 9px; fill: #1a5276; font-style: italic; font-family: "Consolas", "Courier New", monospace; }
+  .src-text { font-size: 9px; fill: #1e8449; font-style: italic; }
+  .var-text { font-size: 9px; fill: #7d3c98; font-family: "Consolas", "Courier New", monospace; }
+  .panel-title { font-size: 12px; font-weight: 700; fill: #2c3e50; }
+  .panel-code { font-size: 9px; fill: #1a5276; font-family: "Consolas", "Courier New", monospace; }
+  .panel-body { font-size: 9.5px; fill: #2c3e50; }
+  .panel-yes { font-size: 9.5px; fill: #1e8449; }
+  .panel-no { font-size: 9.5px; fill: #922b21; }
+  .panel-sec { font-size: 10px; font-weight: 700; fill: #2874A6; }
+  .panel-sec-grn { font-size: 10px; font-weight: 700; fill: #1e8449; }
+  .panel-sec-org { font-size: 10px; font-weight: 700; fill: #d35400; }
+  .panel-sec-red { font-size: 10px; font-weight: 700; fill: #922b21; }
 </style>
 </head>
 <body>
@@ -119,7 +132,7 @@
 
 <div id="canvas">
 <div id="viewport">
-<svg id="flowchart" width="2400" height="1700" xmlns="http://www.w3.org/2000/svg">
+<svg id="flowchart" width="2720" height="1700" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#2c3e50"/>
@@ -147,27 +160,29 @@
   <!-- External source: IHME GBD Results -->
   <rect x="50" y="130" width="170" height="40" rx="4" ry="4" fill="#F4F6F6" stroke="#424949" stroke-width="1.5"/>
   <text x="135" y="148" text-anchor="middle" class="node-text" font-weight="700">IHME GBD Results</text>
-  <text x="135" y="162" text-anchor="middle" class="node-text-small">(external input)</text>
+  <text x="135" y="162" text-anchor="middle" class="node-text-small">(GBD 2021 · 16 cancers + all-cause)</text>
+  <!-- fn annotation below box -->
+  <text x="135" y="178" text-anchor="middle" class="fn-text">fn: read_csv_from_zip(), calc_metric_dt()</text>
 
   <!-- Prevalence data -->
   <rect x="260" y="120" width="150" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="335" y="136" text-anchor="middle" class="node-text">Prevalence data</text>
-  <text x="335" y="148" text-anchor="middle" class="node-text-small">(counts)</text>
+  <text x="335" y="148" text-anchor="middle" class="node-text-small">(cpx: rate; Nx: count)</text>
 
   <!-- Mortality data (count) -->
   <rect x="260" y="170" width="150" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="335" y="186" text-anchor="middle" class="node-text">Mortality data</text>
-  <text x="335" y="198" text-anchor="middle" class="node-text-small">(count data)</text>
+  <text x="335" y="198" text-anchor="middle" class="node-text-small">(Dx = cmx × Nx; count)</text>
 
   <!-- Mortality data (rate) -->
   <rect x="260" y="220" width="150" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="335" y="236" text-anchor="middle" class="node-text">Mortality data</text>
-  <text x="335" y="248" text-anchor="middle" class="node-text-small">(rate data)</text>
+  <text x="335" y="248" text-anchor="middle" class="node-text-small">(cmx: cancer-specific rate)</text>
 
   <!-- Incidence data -->
   <rect x="260" y="270" width="150" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="335" y="286" text-anchor="middle" class="node-text">Incidence data</text>
-  <text x="335" y="298" text-anchor="middle" class="node-text-small">(rates)</text>
+  <text x="335" y="298" text-anchor="middle" class="node-text-small">(cix: rate per 100k)</text>
 
   <!-- Arrows from IHME to the four data boxes -->
   <path d="M 220 150 L 260 137" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
@@ -179,6 +194,8 @@
   <polygon points="490,137 560,165 490,193 420,165" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="490" y="162" text-anchor="middle" class="op-text">Divide</text>
   <text x="490" y="175" text-anchor="middle" class="op-text">by Nx</text>
+  <!-- fn label below diamond -->
+  <text x="490" y="208" text-anchor="middle" class="fn-text">fn: derive_stage_dist()</text>
 
   <path d="M 410 137 L 420 150" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
@@ -186,13 +203,13 @@
   <rect x="590" y="105" width="200" height="120" rx="3" ry="3" fill="#EBF5FB" stroke="#2874A6"/>
   <text x="690" y="122" text-anchor="middle" class="node-text" font-weight="700">Prevalence by stage</text>
   <rect x="602" y="130" width="176" height="20" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="690" y="144" text-anchor="middle" class="node-text-small">Stage I</text>
+  <text x="690" y="144" text-anchor="middle" class="node-text-small">Stage I  (plcl: local)</text>
   <rect x="602" y="152" width="176" height="20" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="690" y="166" text-anchor="middle" class="node-text-small">Stage II</text>
+  <text x="690" y="166" text-anchor="middle" class="node-text-small">Stage II  (prgn: regional)</text>
   <rect x="602" y="174" width="176" height="20" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="690" y="188" text-anchor="middle" class="node-text-small">Stage III</text>
+  <text x="690" y="188" text-anchor="middle" class="node-text-small">Stage III  (pdst: distant)</text>
   <rect x="602" y="196" width="176" height="20" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="690" y="210" text-anchor="middle" class="node-text-small">Stage IV</text>
+  <text x="690" y="210" text-anchor="middle" class="node-text-small">Precancer  (pprc: Cat. 3 only)</text>
 
   <path d="M 560 165 L 590 165" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
@@ -200,23 +217,24 @@
   <rect x="50" y="360" width="180" height="120" rx="3" ry="3" fill="#F4F6F6" stroke="#424949"/>
   <text x="140" y="378" text-anchor="middle" class="node-text" font-weight="700">Cancer stage distribution</text>
   <rect x="62" y="388" width="156" height="18" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="140" y="401" text-anchor="middle" class="node-text-small">Stage I</text>
+  <text x="140" y="401" text-anchor="middle" class="node-text-small">Stage I  (plcl)</text>
   <rect x="62" y="408" width="156" height="18" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="140" y="421" text-anchor="middle" class="node-text-small">Stage II</text>
+  <text x="140" y="421" text-anchor="middle" class="node-text-small">Stage II  (prgn)</text>
   <rect x="62" y="428" width="156" height="18" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="140" y="441" text-anchor="middle" class="node-text-small">Stage III</text>
+  <text x="140" y="441" text-anchor="middle" class="node-text-small">Stage III  (pdst)</text>
   <rect x="62" y="448" width="156" height="18" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="140" y="461" text-anchor="middle" class="node-text-small">Stage IV</text>
+  <text x="140" y="461" text-anchor="middle" class="node-text-small">Precancer  (pprc · Cat. 3)</text>
+  <text x="140" y="476" text-anchor="middle" class="fn-text">object: bsln_stg_dist</text>
 
   <!-- csDx -->
   <rect x="440" y="175" width="160" height="30" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="520" y="194" text-anchor="middle" class="node-text">csDx (cancer-specific deaths)</text>
+  <text x="520" y="191" text-anchor="middle" class="node-text">csDx  (Dx_cs = cmx × Nx)</text>
 
   <path d="M 410 187 L 440 190" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- acmx -->
   <rect x="440" y="225" width="160" height="30" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="520" y="244" text-anchor="middle" class="node-text">acmx (all-cause mx)</text>
+  <text x="520" y="244" text-anchor="middle" class="node-text">acmx  (all-cause mx · GBD ACM)</text>
 
   <path d="M 410 237 L 440 240" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
@@ -224,19 +242,25 @@
   <polygon points="690,260 760,290 690,320 620,290" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="690" y="287" text-anchor="middle" class="op-text">Divide</text>
   <text x="690" y="300" text-anchor="middle" class="op-text">by Nx</text>
+  <!-- fn label below diamond -->
+  <text x="690" y="337" text-anchor="middle" class="fn-text">fn: extract_tp_primers_updt()</text>
 
   <path d="M 600 195 C 640 195, 660 240, 620 280" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- pcsDi -->
   <rect x="780" y="275" width="120" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="840" y="292" text-anchor="middle" class="node-text">pcsDi</text>
-  <text x="840" y="304" text-anchor="middle" class="node-text-small">(cs death prop.)</text>
+  <text x="840" y="304" text-anchor="middle" class="node-text-small">(= cmx / acmx)</text>
 
   <path d="M 760 290 L 780 292" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Calculate bgmx -->
   <polygon points="690,370 770,400 690,430 610,400" fill="#FCF3CF" stroke="#7d6608"/>
-  <text x="690" y="404" text-anchor="middle" class="op-text">Calculate</text>
+  <text x="690" y="397" text-anchor="middle" class="op-text">Calculate</text>
+  <text x="690" y="409" text-anchor="middle" class="op-text">bgmx</text>
+  <!-- fn label below diamond -->
+  <text x="690" y="447" text-anchor="middle" class="fn-text">fn: extract_tp_primers_updt()</text>
+  <text x="690" y="458" text-anchor="middle" class="fn-text">bgmx = acmx − acmx×pcsDi</text>
 
   <path d="M 520 255 C 560 290, 600 370, 620 395" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <text x="543" y="330" class="edge-label">acmx</text>
@@ -244,16 +268,19 @@
   <text x="795" y="355" class="edge-label">pcsDi</text>
 
   <!-- bgmx -->
-  <rect x="600" y="455" width="180" height="36" rx="3" ry="3" fill="#EBF5FB" stroke="#2874A6"/>
-  <text x="690" y="472" text-anchor="middle" class="node-text" font-weight="700">bgmx</text>
-  <text x="690" y="484" text-anchor="middle" class="node-text-small">(background mortality rate)</text>
+  <rect x="600" y="470" width="180" height="36" rx="3" ry="3" fill="#EBF5FB" stroke="#2874A6"/>
+  <text x="690" y="487" text-anchor="middle" class="node-text" font-weight="700">bgmx</text>
+  <text x="690" y="499" text-anchor="middle" class="node-text-small">(= acmx − acmx×pcsDi)</text>
 
-  <path d="M 690 430 L 690 455" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 690 430 L 690 470" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Back-calculate Nx -->
   <polygon points="150,540 240,570 150,600 60,570" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="150" y="568" text-anchor="middle" class="op-text">Back-</text>
   <text x="150" y="580" text-anchor="middle" class="op-text">calculate</text>
+  <!-- fn label to right of diamond (avoids overlap with Nx box below) -->
+  <text x="255" y="572" class="fn-text">fn: calc_metric_dt()</text>
+  <text x="255" y="583" class="fn-text">measure='Population'</text>
 
   <path d="M 335 204 C 260 260, 190 400, 140 540" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <text x="205" y="430" class="edge-label">count data</text>
@@ -261,7 +288,7 @@
   <!-- Nx -->
   <rect x="60" y="620" width="180" height="36" rx="3" ry="3" fill="#EBF5FB" stroke="#2874A6"/>
   <text x="150" y="637" text-anchor="middle" class="node-text" font-weight="700">Nx</text>
-  <text x="150" y="649" text-anchor="middle" class="node-text-small">(total population counts)</text>
+  <text x="150" y="649" text-anchor="middle" class="node-text-small">(GBD 2021 Pop data · counts)</text>
 
   <path d="M 150 600 L 150 620" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
@@ -270,17 +297,18 @@
   <text x="305" y="445" class="edge-label" fill="#1f618d">Nx</text>
 
   <!-- Cancer risk factor / screening distribution -->
-  <rect x="50" y="200" width="170" height="80" rx="3" ry="3" fill="#F4F6F6" stroke="#424949"/>
+  <rect x="50" y="200" width="170" height="94" rx="3" ry="3" fill="#F4F6F6" stroke="#424949"/>
   <text x="135" y="218" text-anchor="middle" class="node-text" font-weight="700">Cancer risk factor /</text>
   <text x="135" y="232" text-anchor="middle" class="node-text" font-weight="700">screening distribution</text>
   <text x="135" y="250" text-anchor="middle" class="node-text-small">• tobacco / alcohol</text>
   <text x="135" y="263" text-anchor="middle" class="node-text-small">• screening coverage</text>
   <text x="135" y="276" text-anchor="middle" class="node-text-small">• exposure by cancer type</text>
+  <text x="135" y="289" text-anchor="middle" class="src-text">source: sim_scen_inputs.xlsx</text>
 
   <!-- ocmx -->
   <rect x="260" y="320" width="200" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="360" y="336" text-anchor="middle" class="node-text">ocmx (other-cause mortality)</text>
-  <text x="360" y="348" text-anchor="middle" class="assume-text">Assumed fixed</text>
+  <text x="360" y="348" text-anchor="middle" class="assume-text">Assumed fixed · = acmx − cmx</text>
 
   <!-- Incidence flow label (incidence → TPM in step 3) -->
   <path d="M 410 287 C 500 290, 560 540, 600 540" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
@@ -295,6 +323,7 @@
 
   <!-- Step 1 summary note -->
   <text x="60" y="690" class="note-text">Outputs: Nx, pcsDi, bgmx, stage distribution, incidence — feed into Steps 2 &amp; 3</text>
+  <text x="60" y="704" class="fn-text">scripts: 00_read_data.R → 01_process_country_param.R</text>
 
   <!-- ============================================================ -->
   <!-- STEP 2 — Starting Values for Markov Trace (top-right region) -->
@@ -309,12 +338,15 @@
   <text x="1075" y="150" text-anchor="middle" class="node-text">Prevalence by stage</text>
 
   <rect x="990" y="180" width="170" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1075" y="200" text-anchor="middle" class="node-text">pcsDi, bgmx, Nx</text>
+  <text x="1075" y="197" text-anchor="middle" class="node-text">pcsDi, bgmx, Nx</text>
+  <text x="1075" y="208" text-anchor="middle" class="fn-text">from Step 1 outputs</text>
 
   <!-- Op 1: Expand to all ages -->
   <polygon points="1260,150 1360,180 1260,210 1160,180" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1260" y="178" text-anchor="middle" class="op-text">Expand to</text>
   <text x="1260" y="190" text-anchor="middle" class="op-text">all ages</text>
+  <!-- fn label below -->
+  <text x="1260" y="226" text-anchor="middle" class="fn-text">fn: calc_start_hstate_dist_dt()</text>
 
   <path d="M 1160 147 L 1215 167" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <path d="M 1160 197 L 1215 185" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
@@ -323,6 +355,8 @@
   <polygon points="1260,240 1370,270 1260,300 1150,270" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1260" y="268" text-anchor="middle" class="op-text">Interpolate</text>
   <text x="1260" y="281" text-anchor="middle" class="op-text">values</text>
+  <!-- fn label below -->
+  <text x="1260" y="316" text-anchor="middle" class="fn-text">fn: zoo::na.approx() / lm() spline</text>
 
   <path d="M 1260 210 L 1260 240" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
@@ -330,42 +364,49 @@
   <polygon points="1120,340 1210,370 1120,400 1030,370" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1120" y="368" text-anchor="middle" class="op-text">Calculate</text>
   <text x="1120" y="380" text-anchor="middle" class="op-text">prop well</text>
+  <!-- fn label below -->
+  <text x="1120" y="416" text-anchor="middle" class="fn-text">pwell = 1 − Σ(stage_props)</text>
 
   <!-- Op 4: Calculate stage distrib -->
   <polygon points="1400,340 1510,370 1400,400 1290,370" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1400" y="368" text-anchor="middle" class="op-text">Calculate</text>
   <text x="1400" y="380" text-anchor="middle" class="op-text">stage distribution</text>
+  <!-- fn label below -->
+  <text x="1400" y="416" text-anchor="middle" class="fn-text">→ bsln_stg_dist</text>
 
   <path d="M 1230 292 C 1190 320, 1160 335, 1140 340" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <path d="M 1290 292 C 1330 320, 1370 335, 1390 340" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Starting Markov trace (vertical stack of states) -->
-  <rect x="1180" y="430" width="280" height="240" rx="4" ry="4" fill="#EAFAF1" stroke="#239B56" stroke-width="1.5"/>
+  <rect x="1180" y="430" width="280" height="258" rx="4" ry="4" fill="#EAFAF1" stroke="#239B56" stroke-width="1.5"/>
   <text x="1320" y="450" text-anchor="middle" class="node-text" font-weight="700">Starting values — Markov Trace</text>
   <text x="1320" y="464" text-anchor="middle" class="node-text-small">(age × state at year 2000)</text>
 
   <rect x="1200" y="475" width="240" height="22" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1320" y="491" text-anchor="middle" class="node-text-small">Well</text>
+  <text x="1320" y="491" text-anchor="middle" class="node-text-small">Well  (pwell)</text>
   <rect x="1200" y="500" width="240" height="22" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1320" y="516" text-anchor="middle" class="node-text-small">Stage I</text>
+  <text x="1320" y="516" text-anchor="middle" class="node-text-small">Stage I / Local  (plcl)</text>
   <rect x="1200" y="525" width="240" height="22" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1320" y="541" text-anchor="middle" class="node-text-small">Stage II</text>
+  <text x="1320" y="541" text-anchor="middle" class="node-text-small">Stage II / Regional  (prgn)</text>
   <rect x="1200" y="550" width="240" height="22" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1320" y="566" text-anchor="middle" class="node-text-small">Stage III</text>
+  <text x="1320" y="566" text-anchor="middle" class="node-text-small">Stage III / Distant  (pdst)</text>
   <rect x="1200" y="575" width="240" height="22" rx="2" ry="2" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1320" y="591" text-anchor="middle" class="node-text-small">Stage IV</text>
+  <text x="1320" y="591" text-anchor="middle" class="node-text-small">Precancer  (pprc · Cat. 3 only)</text>
   <rect x="1200" y="600" width="240" height="22" rx="2" ry="2" fill="#FDEDEC" stroke="#7f8c8d"/>
-  <text x="1320" y="616" text-anchor="middle" class="node-text-small">Dead (cancer)</text>
+  <text x="1320" y="616" text-anchor="middle" class="node-text-small">Dead (cancer)  (pcdx)</text>
   <rect x="1200" y="625" width="240" height="22" rx="2" ry="2" fill="#FDEDEC" stroke="#7f8c8d"/>
-  <text x="1320" y="641" text-anchor="middle" class="node-text-small">Dead (other)</text>
+  <text x="1320" y="641" text-anchor="middle" class="node-text-small">Dead (other)  (pbgdx)</text>
+  <!-- script annotation inside box -->
+  <text x="1320" y="660" text-anchor="middle" class="fn-text">script: 02_process_bsln_scen.R</text>
+  <text x="1320" y="672" text-anchor="middle" class="fn-text">start_hstate_dist · 7 states × age × sex</text>
 
   <path d="M 1120 400 C 1120 430, 1200 440, 1230 470" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <path d="M 1400 400 C 1400 430, 1380 440, 1370 470" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Note: Markov starts in 2000 -->
-  <rect x="990" y="680" width="430" height="46" rx="4" ry="4" fill="#FEF9E7" stroke="#B7950B" stroke-dasharray="3,2"/>
-  <text x="1005" y="700" class="note-text">Note: Markov model starts in 2000 to allow stabilization</text>
-  <text x="1005" y="716" class="note-text">before projection. Horizon: 2000 → 2050.</text>
+  <rect x="990" y="698" width="430" height="34" rx="4" ry="4" fill="#FEF9E7" stroke="#B7950B" stroke-dasharray="3,2"/>
+  <text x="1005" y="714" class="note-text">Note: Markov model starts in 2000 to allow stabilization</text>
+  <text x="1005" y="726" class="fn-text">fn: calc_start_hstate_dist_dt() · horizon: 2000 → 2050</text>
 
   <!-- Arrows from Step 1 into Step 2 -->
   <path d="M 790 165 C 880 150, 920 150, 990 145" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
@@ -381,48 +422,60 @@
 
   <!-- Input blocks coming into Step 3 -->
   <rect x="60" y="810" width="180" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="150" y="830" text-anchor="middle" class="node-text">Incidence data</text>
+  <text x="150" y="827" text-anchor="middle" class="node-text">Incidence  ·  cix</text>
+  <text x="150" y="839" text-anchor="middle" class="fn-text">rate per 100k · from Step 1 / GBD 2021</text>
 
   <rect x="60" y="860" width="180" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="150" y="880" text-anchor="middle" class="node-text">bgmx (background mx)</text>
+  <text x="150" y="877" text-anchor="middle" class="node-text">bgmx  (background mx)</text>
+  <text x="150" y="889" text-anchor="middle" class="fn-text">= acmx − acmx×pcsDi · from Step 1</text>
 
   <rect x="60" y="910" width="180" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="150" y="926" text-anchor="middle" class="node-text">Cancer-specific</text>
-  <text x="150" y="938" text-anchor="middle" class="node-text">death rate</text>
+  <text x="150" y="938" text-anchor="middle" class="node-text">death rate  (cmx)</text>
 
   <rect x="60" y="960" width="180" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="150" y="976" text-anchor="middle" class="node-text">Screening / early</text>
   <text x="150" y="988" text-anchor="middle" class="node-text">detection inputs</text>
+  <text x="150" y="1000" text-anchor="middle" class="src-text">source: sim_scen_inputs.xlsx</text>
 
-  <rect x="60" y="1010" width="180" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="150" y="1026" text-anchor="middle" class="node-text">ocmx</text>
-  <text x="150" y="1038" text-anchor="middle" class="assume-text">Assumed fixed</text>
+  <rect x="60" y="1014" width="180" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
+  <text x="150" y="1030" text-anchor="middle" class="node-text">ocmx</text>
+  <text x="150" y="1042" text-anchor="middle" class="assume-text">Assumed fixed · = acmx − cmx</text>
 
   <!-- Divide by stage distrib (diamond) -->
   <polygon points="370,920 460,950 370,980 280,950" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="370" y="948" text-anchor="middle" class="op-text">Divide by</text>
   <text x="370" y="960" text-anchor="middle" class="op-text">stage distrib.</text>
+  <!-- fn label to right of diamond -->
+  <text x="470" y="994" class="fn-text">fn: calc_bsln_tps_dt()</text>
+  <text x="470" y="1005" class="fn-text">calc_indiv_tp_cat(cat=1/2/3)</text>
 
   <path d="M 240 927 L 285 945" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- TP nodes -->
   <rect x="530" y="800" width="190" height="34" rx="3" ry="3" fill="#E8F8F5" stroke="#117A65"/>
   <text x="625" y="820" text-anchor="middle" class="node-text">well_s1  (Well → Stage I)</text>
+  <text x="625" y="834" text-anchor="middle" class="fn-text">var: w_lcl / w_prc  (Cat. 1/2 | Cat. 3)</text>
 
   <rect x="530" y="845" width="190" height="34" rx="3" ry="3" fill="#E8F8F5" stroke="#117A65"/>
-  <text x="625" y="865" text-anchor="middle" class="node-text">s1_s2  (Stage I → II)</text>
+  <text x="625" y="862" text-anchor="middle" class="node-text">s1_s2  (Stage I → II)</text>
+  <text x="625" y="876" text-anchor="middle" class="fn-text">var: prc_lcl / lcl_rgn  (Cat. 3 | Cat. 2)</text>
 
   <rect x="530" y="890" width="190" height="34" rx="3" ry="3" fill="#E8F8F5" stroke="#117A65"/>
-  <text x="625" y="910" text-anchor="middle" class="node-text">s2_s3  (Stage II → III)</text>
+  <text x="625" y="907" text-anchor="middle" class="node-text">s2_s3  (Stage II → III)</text>
+  <text x="625" y="921" text-anchor="middle" class="fn-text">var: lcl_rgn / rgn_dst  (Cat. 2&amp;3)</text>
 
   <rect x="530" y="935" width="190" height="34" rx="3" ry="3" fill="#E8F8F5" stroke="#117A65"/>
-  <text x="625" y="955" text-anchor="middle" class="node-text">s3_s4  (Stage III → IV)</text>
+  <text x="625" y="952" text-anchor="middle" class="node-text">s3_s4  (Stage III → IV)</text>
+  <text x="625" y="966" text-anchor="middle" class="fn-text">var: rgn_dst  (Cat. 2&amp;3 only)</text>
 
   <rect x="530" y="980" width="190" height="34" rx="3" ry="3" fill="#FDEDEC" stroke="#943126"/>
-  <text x="625" y="1000" text-anchor="middle" class="node-text">st_d  (Stage → Dead cancer)</text>
+  <text x="625" y="997" text-anchor="middle" class="node-text">st_d  (Stage → Dead cancer)</text>
+  <text x="625" y="1011" text-anchor="middle" class="fn-text">var: stage_*_d · driven by cmx</text>
 
   <rect x="530" y="1025" width="190" height="34" rx="3" ry="3" fill="#FDEDEC" stroke="#943126"/>
-  <text x="625" y="1045" text-anchor="middle" class="node-text">d0  (Death — other causes)</text>
+  <text x="625" y="1042" text-anchor="middle" class="node-text">d0  (Death — other causes)</text>
+  <text x="625" y="1056" text-anchor="middle" class="fn-text">var: *_do · driven by bgmx</text>
 
   <!-- Arrows: incidence → well_s1 and stage TPs -->
   <path d="M 240 825 C 380 820, 450 815, 530 815" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
@@ -444,49 +497,50 @@
   <text x="320" y="1030" class="edge-label">bgmx</text>
 
   <!-- ocmx → d0 -->
-  <path d="M 240 1026 C 360 1038, 450 1044, 530 1046" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 240 1030 C 360 1040, 450 1046, 530 1046" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- TPM box -->
   <rect x="790" y="810" width="440" height="300" rx="6" ry="6" fill="#EAFAF1" stroke="#239B56" stroke-width="2"/>
   <text x="1010" y="834" text-anchor="middle" class="node-text" font-weight="700" font-size="13">Transition Probability Matrix (TPM)</text>
-  <text x="1010" y="850" text-anchor="middle" class="node-text-small">7 × 7 per age × year</text>
+  <text x="1010" y="850" text-anchor="middle" class="node-text-small">7 × 7 per age × sex × year × cause</text>
+  <text x="1010" y="862" text-anchor="middle" class="fn-text">scripts: 02_process_bsln_scen.R, 04_process_intv_scen.R</text>
 
   <!-- Simple matrix visualization -->
-  <g transform="translate(820,870)">
+  <g transform="translate(820,875)">
     <!-- header row -->
     <text x="0" y="10" class="node-text-small" font-weight="700">from \ to</text>
     <text x="80" y="10" class="node-text-small">W</text>
-    <text x="115" y="10" class="node-text-small">S1</text>
-    <text x="150" y="10" class="node-text-small">S2</text>
-    <text x="185" y="10" class="node-text-small">S3</text>
-    <text x="220" y="10" class="node-text-small">S4</text>
+    <text x="115" y="10" class="node-text-small">Prc</text>
+    <text x="150" y="10" class="node-text-small">Lcl</text>
+    <text x="185" y="10" class="node-text-small">Rgn</text>
+    <text x="220" y="10" class="node-text-small">Dst</text>
     <text x="255" y="10" class="node-text-small">Dc</text>
     <text x="290" y="10" class="node-text-small">Do</text>
 
     <text x="0" y="35" class="node-text-small">Well</text>
     <text x="80" y="35" class="node-text-small">1-…</text>
-    <text x="115" y="35" class="node-text-small" fill="#d35400">well_s1</text>
-    <text x="220" y="35" class="node-text-small" fill="#943126">—</text>
-    <text x="290" y="35" class="node-text-small" fill="#943126">d0</text>
+    <text x="115" y="35" class="node-text-small" fill="#d35400">w_prc</text>
+    <text x="150" y="35" class="node-text-small" fill="#d35400">w_lcl</text>
+    <text x="290" y="35" class="node-text-small" fill="#943126">*_do</text>
 
-    <text x="0" y="55" class="node-text-small">Stage I</text>
-    <text x="150" y="55" class="node-text-small" fill="#d35400">s1_s2</text>
-    <text x="255" y="55" class="node-text-small" fill="#943126">st_d</text>
-    <text x="290" y="55" class="node-text-small" fill="#943126">d0</text>
+    <text x="0" y="55" class="node-text-small">Precancer</text>
+    <text x="150" y="55" class="node-text-small" fill="#d35400">prc_lcl</text>
+    <text x="255" y="55" class="node-text-small" fill="#943126">*_d</text>
+    <text x="290" y="55" class="node-text-small" fill="#943126">*_do</text>
 
-    <text x="0" y="75" class="node-text-small">Stage II</text>
-    <text x="185" y="75" class="node-text-small" fill="#d35400">s2_s3</text>
-    <text x="255" y="75" class="node-text-small" fill="#943126">st_d</text>
-    <text x="290" y="75" class="node-text-small" fill="#943126">d0</text>
+    <text x="0" y="75" class="node-text-small">Local</text>
+    <text x="185" y="75" class="node-text-small" fill="#d35400">lcl_rgn</text>
+    <text x="255" y="75" class="node-text-small" fill="#943126">*_d</text>
+    <text x="290" y="75" class="node-text-small" fill="#943126">*_do</text>
 
-    <text x="0" y="95" class="node-text-small">Stage III</text>
-    <text x="220" y="95" class="node-text-small" fill="#d35400">s3_s4</text>
-    <text x="255" y="95" class="node-text-small" fill="#943126">st_d</text>
-    <text x="290" y="95" class="node-text-small" fill="#943126">d0</text>
+    <text x="0" y="95" class="node-text-small">Regional</text>
+    <text x="220" y="95" class="node-text-small" fill="#d35400">rgn_dst</text>
+    <text x="255" y="95" class="node-text-small" fill="#943126">*_d</text>
+    <text x="290" y="95" class="node-text-small" fill="#943126">*_do</text>
 
-    <text x="0" y="115" class="node-text-small">Stage IV</text>
-    <text x="255" y="115" class="node-text-small" fill="#943126">st_d</text>
-    <text x="290" y="115" class="node-text-small" fill="#943126">d0</text>
+    <text x="0" y="115" class="node-text-small">Distant</text>
+    <text x="255" y="115" class="node-text-small" fill="#943126">*_d</text>
+    <text x="290" y="115" class="node-text-small" fill="#943126">*_do</text>
 
     <text x="0" y="140" class="node-text-small">Dead (c)</text>
     <text x="255" y="140" class="node-text-small">1</text>
@@ -495,6 +549,9 @@
     <text x="290" y="160" class="node-text-small">1</text>
 
     <line x1="0" y1="15" x2="320" y2="15" stroke="#239B56"/>
+    <!-- State variable legend inside TPM -->
+    <text x="0" y="186" class="fn-text">W=pwell · Prc=pprc · Lcl=plcl · Rgn=prgn · Dst=pdst</text>
+    <text x="0" y="198" class="fn-text">Dc=pcdx (cancer dead) · Do=pbgdx (background dead)</text>
   </g>
 
   <!-- Arrows from TP nodes into TPM -->
@@ -506,9 +563,10 @@
   <path d="M 720 1040 L 790 1020" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Baseline assumption note -->
-  <rect x="60" y="1110" width="430" height="46" rx="4" ry="4" fill="#FEF9E7" stroke="#B7950B" stroke-dasharray="3,2"/>
-  <text x="75" y="1130" class="note-text">Baseline assumption: 2019 TP values held constant</text>
-  <text x="75" y="1146" class="note-text">into future years unless changed in 01_main_sim_script.R</text>
+  <rect x="60" y="1110" width="520" height="56" rx="4" ry="4" fill="#FEF9E7" stroke="#B7950B" stroke-dasharray="3,2"/>
+  <text x="75" y="1128" class="note-text">Baseline assumption: 2019 TP values held constant</text>
+  <text x="75" y="1144" class="note-text">into future years unless changed in 02_process_bsln_scen.R</text>
+  <text x="75" y="1158" class="fn-text">fn: calc_bsln_tps_dt(), calc_indiv_tp_cat(), expand_tps_years_dt()</text>
 
   <!-- ============================================================ -->
   <!-- STEP 4 — Creating Markov Trace (right region) -->
@@ -519,7 +577,7 @@
   <text x="1320" y="778" class="step-header">Step 4 — Creating Markov Trace</text>
 
   <!-- User-defined inputs -->
-  <rect x="1310" y="805" width="270" height="150" rx="3" ry="3" fill="#FEF9E7" stroke="#B7950B"/>
+  <rect x="1310" y="805" width="270" height="162" rx="3" ry="3" fill="#FEF9E7" stroke="#B7950B"/>
   <text x="1445" y="823" text-anchor="middle" class="node-text" font-weight="700">User-defined inputs</text>
   <text x="1320" y="842" class="node-text-small">• Target cancer types</text>
   <text x="1320" y="858" class="node-text-small">• Baseline treatment adherence coverage</text>
@@ -527,29 +585,38 @@
   <text x="1320" y="890" class="node-text-small">• Intervention scale-up start year</text>
   <text x="1320" y="906" class="node-text-small">• Intervention scale-up end year</text>
   <text x="1320" y="922" class="node-text-small">• Target country</text>
-  <text x="1320" y="945" text-anchor="start" class="assume-text">from intv_scen_inputs.xlsx — sheet “ui”</text>
+  <text x="1320" y="940" text-anchor="start" class="assume-text">from sim_scen_inputs.xlsx — sheet "ui"</text>
+  <text x="1320" y="954" text-anchor="start" class="fn-text">fn: read_sim_param()</text>
 
   <!-- External inputs -->
   <rect x="1600" y="805" width="200" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1700" y="825" text-anchor="middle" class="node-text">Treatment effectiveness (RR)</text>
+  <text x="1700" y="822" text-anchor="middle" class="node-text">Treatment effectiveness (RR)</text>
+  <text x="1700" y="834" text-anchor="middle" class="fn-text">intv_modif_rr · sim_scen_inputs.xlsx</text>
 
   <rect x="1600" y="845" width="200" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1700" y="865" text-anchor="middle" class="node-text">Treatment coverage</text>
+  <text x="1700" y="862" text-anchor="middle" class="node-text">Treatment coverage</text>
+  <text x="1700" y="874" text-anchor="middle" class="fn-text">cascade: screened→diagnosed→treated</text>
 
   <rect x="1600" y="885" width="200" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1700" y="905" text-anchor="middle" class="node-text">Treatment cascade data</text>
+  <text x="1700" y="902" text-anchor="middle" class="node-text">Treatment cascade data</text>
+  <text x="1700" y="914" text-anchor="middle" class="fn-text">process_intv_scen_inputs()</text>
 
   <!-- Define intervention scenario (diamond) -->
   <polygon points="1520,1010 1640,1040 1520,1070 1400,1040" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1520" y="1038" text-anchor="middle" class="op-text">Define intervention</text>
   <text x="1520" y="1050" text-anchor="middle" class="op-text">scenario</text>
+  <!-- fn label below -->
+  <text x="1520" y="1086" text-anchor="middle" class="fn-text">fn: process_intv_scen_inputs()</text>
+  <text x="1520" y="1097" text-anchor="middle" class="fn-text">calc_intv_tps()</text>
 
-  <path d="M 1445 955 L 1490 1010" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 1445 967 L 1490 1010" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <path d="M 1700 920 C 1700 970, 1620 1015, 1575 1025" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Correction op -->
   <polygon points="1720,1010 1810,1040 1720,1070 1630,1040" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1720" y="1048" text-anchor="middle" class="op-text">Correction</text>
+  <!-- fn label below -->
+  <text x="1720" y="1086" text-anchor="middle" class="fn-text">fn: correct_markov()</text>
 
   <path d="M 1640 1040 L 1630 1040" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
@@ -557,16 +624,20 @@
   <polygon points="1920,1010 2040,1040 1920,1070 1800,1040" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1920" y="1036" text-anchor="middle" class="op-text">Matrix</text>
   <text x="1920" y="1050" text-anchor="middle" class="op-text">multiplication</text>
+  <!-- fn label below -->
+  <text x="1920" y="1086" text-anchor="middle" class="fn-text">fn: project_markov_trace_dt()</text>
 
   <path d="M 1810 1040 L 1800 1040" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Markov Trace (prominent) -->
-  <rect x="1780" y="1120" width="270" height="110" rx="6" ry="6" fill="#D1F2EB" stroke="#117A65" stroke-width="2"/>
+  <rect x="1780" y="1120" width="270" height="120" rx="6" ry="6" fill="#D1F2EB" stroke="#117A65" stroke-width="2"/>
   <text x="1915" y="1142" text-anchor="middle" class="node-text" font-weight="700" font-size="13">Markov Trace</text>
   <text x="1915" y="1160" text-anchor="middle" class="node-text-small">cohort proportions across states</text>
   <text x="1915" y="1175" text-anchor="middle" class="node-text-small">by age, year, cancer type</text>
-  <text x="1915" y="1195" text-anchor="middle" class="node-text-small">{Well, S1, S2, S3, S4, Dc, Do}</text>
-  <text x="1915" y="1215" text-anchor="middle" class="assume-text">projection: 2000–2050</text>
+  <text x="1915" y="1192" text-anchor="middle" class="node-text-small">{pwell, pprc, plcl, prgn, pdst, pcdx, pbgdx}</text>
+  <text x="1915" y="1208" text-anchor="middle" class="assume-text">projection: 2000–2050</text>
+  <text x="1915" y="1222" text-anchor="middle" class="fn-text">script: 04_process_intv_scen.R</text>
+  <text x="1915" y="1234" text-anchor="middle" class="fn-text">fn: project_markov_trace_dt()</text>
 
   <path d="M 1920 1070 L 1920 1120" stroke="#2c3e50" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
 
@@ -593,16 +664,20 @@
   <!-- Inputs -->
   <rect x="60" y="1315" width="220" height="46" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
   <text x="170" y="1332" text-anchor="middle" class="node-text">Age-specific fertility rates</text>
-  <text x="170" y="1346" text-anchor="middle" class="node-text">(ASFR)</text>
-  <text x="170" y="1358" text-anchor="middle" class="assume-text">Assumed fixed</text>
+  <text x="170" y="1346" text-anchor="middle" class="node-text">(ASFR · GBD 2023)</text>
+  <text x="170" y="1358" text-anchor="middle" class="assume-text">Assumed fixed · gbd_frt_1yr_interpolate</text>
 
   <rect x="60" y="1375" width="220" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="170" y="1395" text-anchor="middle" class="node-text">Abridged life table</text>
+  <text x="170" y="1392" text-anchor="middle" class="node-text">Life table  ·  gen_lifetable(acmx)</text>
+  <text x="170" y="1404" text-anchor="middle" class="fn-text">derives mx, Lx from acmx</text>
 
   <!-- Run CCPM op -->
   <polygon points="410,1340 520,1370 410,1400 300,1370" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="410" y="1368" text-anchor="middle" class="op-text">Run</text>
   <text x="410" y="1381" text-anchor="middle" class="op-text">CCPM</text>
+  <!-- fn label below -->
+  <text x="410" y="1416" text-anchor="middle" class="fn-text">fn: proj_ccpm_markov()</text>
+  <text x="410" y="1427" text-anchor="middle" class="fn-text">run_ccpm() · Leslie matrix</text>
 
   <path d="M 280 1338 L 305 1358" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <path d="M 280 1390 L 305 1382" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
@@ -611,7 +686,7 @@
   <rect x="570" y="1330" width="240" height="80" rx="4" ry="4" fill="#EBF5FB" stroke="#2874A6" stroke-width="1.5"/>
   <text x="690" y="1352" text-anchor="middle" class="node-text" font-weight="700">Cohort Component</text>
   <text x="690" y="1368" text-anchor="middle" class="node-text" font-weight="700">Projection Model</text>
-  <text x="690" y="1386" text-anchor="middle" class="node-text-small">survival, births, migration</text>
+  <text x="690" y="1384" text-anchor="middle" class="node-text-small">survival, births, migration</text>
   <text x="690" y="1402" text-anchor="middle" class="assume-text">horizon: 2020–2050</text>
 
   <path d="M 520 1370 L 570 1370" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
@@ -620,6 +695,8 @@
   <polygon points="900,1340 1010,1370 900,1400 790,1370" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="900" y="1368" text-anchor="middle" class="op-text">Matrix</text>
   <text x="900" y="1381" text-anchor="middle" class="op-text">multiplication</text>
+  <!-- fn label below -->
+  <text x="900" y="1416" text-anchor="middle" class="fn-text">Leslie matrix multiply</text>
 
   <path d="M 810 1370 L 790 1370" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
@@ -628,66 +705,74 @@
   <text x="1155" y="1362" text-anchor="middle" class="node-text" font-weight="700">Future population</text>
   <text x="1155" y="1378" text-anchor="middle" class="node-text" font-weight="700">projection</text>
   <text x="1155" y="1394" text-anchor="middle" class="node-text-small">(age × sex × year)</text>
+  <text x="1155" y="1406" text-anchor="middle" class="fn-text">Nx · script: 03_, 05_pop_proj_*.R</text>
 
   <path d="M 1010 1370 L 1060 1370" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Other-cause deaths + Cancer-specific deaths -->
-  <rect x="60" y="1440" width="210" height="38" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="165" y="1457" text-anchor="middle" class="node-text">Other-cause deaths</text>
-  <text x="165" y="1470" text-anchor="middle" class="node-text-small">(count)</text>
+  <rect x="60" y="1450" width="210" height="38" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
+  <text x="165" y="1467" text-anchor="middle" class="node-text">Other-cause deaths</text>
+  <text x="165" y="1480" text-anchor="middle" class="node-text-small">(count · = Nx × bgmx)</text>
 
-  <rect x="60" y="1490" width="210" height="38" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="165" y="1507" text-anchor="middle" class="node-text">Cancer-specific deaths</text>
-  <text x="165" y="1520" text-anchor="middle" class="node-text-small">(count)</text>
+  <rect x="60" y="1494" width="210" height="38" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
+  <text x="165" y="1511" text-anchor="middle" class="node-text">Cancer-specific deaths</text>
+  <text x="165" y="1524" text-anchor="middle" class="node-text-small">(count · = stage_prop × Nx × cmx)</text>
 
   <!-- Add op -->
-  <polygon points="370,1460 450,1485 370,1510 290,1485" fill="#FCF3CF" stroke="#7d6608"/>
-  <text x="370" y="1490" text-anchor="middle" class="op-text">Add</text>
+  <polygon points="370,1466 450,1491 370,1516 290,1491" fill="#FCF3CF" stroke="#7d6608"/>
+  <text x="370" y="1496" text-anchor="middle" class="op-text">Add</text>
 
-  <path d="M 270 1459 L 295 1478" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
-  <path d="M 270 1509 L 295 1493" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 270 1465 L 295 1484" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 270 1513 L 295 1499" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- All-cause deaths (count) -->
-  <rect x="480" y="1465" width="200" height="38" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="580" y="1482" text-anchor="middle" class="node-text">All-cause deaths</text>
-  <text x="580" y="1495" text-anchor="middle" class="node-text-small">(count)</text>
+  <rect x="480" y="1471" width="200" height="38" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
+  <text x="580" y="1488" text-anchor="middle" class="node-text">All-cause deaths</text>
+  <text x="580" y="1501" text-anchor="middle" class="node-text-small">(count · Dx = Nx_bg + Nx_cs)</text>
 
-  <path d="M 450 1485 L 480 1485" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 450 1491 L 480 1491" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Divide by Nx op -->
-  <polygon points="770,1460 840,1485 770,1510 700,1485" fill="#FCF3CF" stroke="#7d6608"/>
-  <text x="770" y="1483" text-anchor="middle" class="op-text">Divide</text>
-  <text x="770" y="1495" text-anchor="middle" class="op-text">by Nx</text>
+  <polygon points="770,1466 840,1491 770,1516 700,1491" fill="#FCF3CF" stroke="#7d6608"/>
+  <text x="770" y="1489" text-anchor="middle" class="op-text">Divide</text>
+  <text x="770" y="1501" text-anchor="middle" class="op-text">by Nx</text>
+  <!-- fn label below -->
+  <text x="770" y="1532" text-anchor="middle" class="fn-text">fn: calc_epi_rates_markov()</text>
 
-  <path d="M 680 1485 L 700 1485" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 680 1491 L 700 1491" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- acmx updated -->
-  <rect x="870" y="1465" width="200" height="38" rx="3" ry="3" fill="#EBF5FB" stroke="#2874A6"/>
-  <text x="970" y="1482" text-anchor="middle" class="node-text" font-weight="700">acmx (updated)</text>
-  <text x="970" y="1495" text-anchor="middle" class="node-text-small">all-cause mortality rates</text>
+  <rect x="870" y="1471" width="200" height="38" rx="3" ry="3" fill="#EBF5FB" stroke="#2874A6"/>
+  <text x="970" y="1488" text-anchor="middle" class="node-text" font-weight="700">acmx (updated)</text>
+  <text x="970" y="1501" text-anchor="middle" class="node-text-small">all-cause mortality rates</text>
+  <text x="970" y="1514" text-anchor="middle" class="fn-text">recalculated annually</text>
 
-  <path d="M 840 1485 L 870 1485" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 840 1491 L 870 1491" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Update feedback arrow: acmx → bgmx (back to Step 3 input) -->
-  <polygon points="1130,1460 1210,1485 1130,1510 1050,1485" fill="#FCF3CF" stroke="#7d6608"/>
-  <text x="1130" y="1490" text-anchor="middle" class="op-text">Update</text>
+  <polygon points="1130,1466 1210,1491 1130,1516 1050,1491" fill="#FCF3CF" stroke="#7d6608"/>
+  <text x="1130" y="1496" text-anchor="middle" class="op-text">Update</text>
+  <!-- fn label below -->
+  <text x="1130" y="1532" text-anchor="middle" class="fn-text">→ recalculates bgmx for Step 3</text>
 
-  <path d="M 1070 1485 L 1050 1485" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 1070 1491 L 1050 1491" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- feedback loop arrow up toward Step 3 bgmx -->
-  <path d="M 1130 1460 C 1130 1400, 700 1200, 240 900" stroke="#1f618d" stroke-width="1.2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowLoop)"/>
+  <path d="M 1130 1466 C 1130 1400, 700 1200, 240 900" stroke="#1f618d" stroke-width="1.2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrowLoop)"/>
   <text x="800" y="1270" class="edge-label" fill="#1f618d">feeds back into bgmx (Step 3)</text>
 
   <!-- Nx note -->
-  <rect x="700" y="1540" width="260" height="36" rx="3" ry="3" fill="#FEF9E7" stroke="#B7950B" stroke-dasharray="3,2"/>
-  <text x="830" y="1562" text-anchor="middle" class="node-text-small">Nx used to convert counts ↔ rates</text>
+  <rect x="700" y="1545" width="290" height="44" rx="3" ry="3" fill="#FEF9E7" stroke="#B7950B" stroke-dasharray="3,2"/>
+  <text x="845" y="1563" text-anchor="middle" class="node-text-small">Nx used to convert counts ↔ rates</text>
+  <text x="845" y="1577" text-anchor="middle" class="fn-text">scripts: 03_process_pop_proj_bsln_dt.R</text>
+  <text x="845" y="1587" text-anchor="middle" class="fn-text">         05_process_pop_proj_intv_dt.R</text>
 
   <!-- Markov Trace → csD (count) feed (from step 4 back to step 5 cs deaths) -->
-  <path d="M 1780 1175 C 1500 1180, 350 1400, 165 1490" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 1780 1175 C 1500 1180, 350 1400, 165 1494" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <text x="930" y="1350" class="edge-label">× Nx → cancer deaths (count)</text>
 
   <!-- Note: pop projection goes to step 6 -->
-  <text x="1060" y="1418" class="edge-label">→ to Step 6 (target pop)</text>
+  <text x="1060" y="1422" class="edge-label">→ to Step 6 (target pop)</text>
 
   <!-- ============================================================ -->
   <!-- STEP 6 — Economic Evaluation (bottom-right) -->
@@ -699,25 +784,30 @@
 
   <!-- Inputs -->
   <rect x="1310" y="1315" width="200" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1410" y="1335" text-anchor="middle" class="node-text">Target population</text>
+  <text x="1410" y="1332" text-anchor="middle" class="node-text">Target population</text>
+  <text x="1410" y="1344" text-anchor="middle" class="fn-text">from Step 5 · Nx by age × sex × year</text>
 
   <rect x="1310" y="1355" width="200" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1410" y="1375" text-anchor="middle" class="node-text">Cost data</text>
+  <text x="1410" y="1372" text-anchor="middle" class="node-text">Cost data</text>
+  <text x="1410" y="1384" text-anchor="middle" class="src-text">source: sim_scen_inputs.xlsx</text>
 
   <rect x="1310" y="1395" width="200" height="34" rx="3" ry="3" fill="#ffffff" stroke="#7f8c8d"/>
-  <text x="1410" y="1415" text-anchor="middle" class="node-text">Disability weights</text>
+  <text x="1410" y="1412" text-anchor="middle" class="node-text">Disability weights</text>
+  <text x="1410" y="1424" text-anchor="middle" class="src-text">source: sim_scen_inputs.xlsx (dw_stg)</text>
 
   <!-- Incoming: cancer-specific deaths from step 5 -->
-  <path d="M 270 1510 C 900 1600, 1250 1420, 1310 1332" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 270 1524 C 900 1600, 1250 1420, 1310 1332" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Incoming: Markov trace from step 4 -->
-  <path d="M 1915 1230 C 1900 1260, 1700 1330, 1600 1370" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 1915 1240 C 1900 1260, 1700 1330, 1600 1370" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <text x="1710" y="1290" class="edge-label">Markov Trace</text>
 
   <!-- Multiplication op -->
   <polygon points="1640,1340 1740,1370 1640,1400 1540,1370" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1640" y="1368" text-anchor="middle" class="op-text">Multiplication</text>
   <text x="1640" y="1381" text-anchor="middle" class="op-text">× target pop</text>
+  <!-- fn label below -->
+  <text x="1640" y="1415" text-anchor="middle" class="fn-text">tpop_cost = Nx × stage_prop × cost</text>
 
   <path d="M 1510 1335 L 1540 1358" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
   <path d="M 1510 1375 L 1540 1373" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
@@ -727,30 +817,171 @@
   <polygon points="1880,1340 1990,1370 1880,1400 1770,1370" fill="#FCF3CF" stroke="#7d6608"/>
   <text x="1880" y="1368" text-anchor="middle" class="op-text">Rate-specific</text>
   <text x="1880" y="1381" text-anchor="middle" class="op-text">calculations</text>
+  <!-- fn label below -->
+  <text x="1880" y="1415" text-anchor="middle" class="fn-text">fn: calc_pov() · sim_gni_gini()</text>
+  <text x="1880" y="1426" text-anchor="middle" class="fn-text">calc_epi_rates_markov() · frp_fnx.R</text>
 
   <path d="M 1740 1370 L 1770 1370" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- CEA output -->
-  <rect x="1500" y="1470" width="230" height="50" rx="6" ry="6" fill="#FADBD8" stroke="#922B21" stroke-width="2"/>
-  <text x="1615" y="1492" text-anchor="middle" class="node-text" font-weight="700">Cost-Effectiveness Analysis</text>
-  <text x="1615" y="1508" text-anchor="middle" class="node-text-small">ICERs, cost per DALY averted</text>
+  <rect x="1500" y="1480" width="230" height="54" rx="6" ry="6" fill="#FADBD8" stroke="#922B21" stroke-width="2"/>
+  <text x="1615" y="1500" text-anchor="middle" class="node-text" font-weight="700">Cost-Effectiveness Analysis</text>
+  <text x="1615" y="1516" text-anchor="middle" class="node-text-small">ICERs, cost per DALY averted</text>
+  <text x="1615" y="1528" text-anchor="middle" class="fn-text">cost_output · 06_dissertation_output.R</text>
 
   <!-- DALYs averted output -->
-  <rect x="1770" y="1470" width="230" height="50" rx="6" ry="6" fill="#FADBD8" stroke="#922B21" stroke-width="2"/>
-  <text x="1885" y="1492" text-anchor="middle" class="node-text" font-weight="700">DALYs averted</text>
-  <text x="1885" y="1508" text-anchor="middle" class="node-text-small">YLL + YLD, scenario vs baseline</text>
+  <rect x="1770" y="1480" width="230" height="54" rx="6" ry="6" fill="#FADBD8" stroke="#922B21" stroke-width="2"/>
+  <text x="1885" y="1500" text-anchor="middle" class="node-text" font-weight="700">DALYs averted</text>
+  <text x="1885" y="1516" text-anchor="middle" class="node-text-small">YLL + YLD, scenario vs baseline</text>
+  <text x="1885" y="1528" text-anchor="middle" class="fn-text">fn: calc_markov_state_deltas_dt()</text>
 
-  <path d="M 1700 1400 C 1680 1450, 1650 1460, 1615 1470" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
-  <path d="M 1880 1400 C 1880 1440, 1885 1460, 1885 1470" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 1700 1400 C 1680 1450, 1650 1465, 1615 1480" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 1880 1400 C 1880 1450, 1885 1465, 1885 1480" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
   <!-- Also connect pop projection (step 5) → target population (step 6) -->
   <path d="M 1250 1370 C 1280 1345, 1300 1335, 1310 1332" stroke="#2c3e50" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/>
 
+  <!-- ============================================================ -->
+  <!-- RIGHT PANEL — Technical Annotations -->
+  <!-- ============================================================ -->
+  <!-- Panel separator -->
+  <line x1="2092" y1="70" x2="2092" y2="1690" stroke="#bdc3c7" stroke-width="1.5" stroke-dasharray="8,4"/>
+  <text x="2390" y="78" text-anchor="middle" class="group-label" fill="#5d6d7e">TECHNICAL ANNOTATIONS</text>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- BOX A: DATA SOURCES -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="2102" y="88" width="590" height="320" rx="6" ry="6" fill="#EBF5FB" stroke="#2874A6" stroke-width="1.5"/>
+  <text x="2112" y="106" class="panel-title" fill="#2874A6">A. DATA SOURCES</text>
+  <line x1="2102" y1="112" x2="2692" y2="112" stroke="#2874A6" stroke-width="1"/>
+
+  <!-- GBD 2021 subsection -->
+  <text x="2112" y="128" class="panel-sec">GBD 2021 Epidemiological Data</text>
+  <text x="2112" y="142" class="panel-code">  cix    incidence rate (per 100k)</text>
+  <text x="2112" y="154" class="panel-code">  cpx    prevalence rate (per 100k)</text>
+  <text x="2112" y="166" class="panel-code">  cmx    cancer-specific mortality rate</text>
+  <text x="2112" y="178" class="panel-code">  Dx     deaths (count = cmx × Nx)</text>
+  <text x="2112" y="190" class="panel-code">  acmx   all-cause mortality rate</text>
+  <text x="2112" y="202" class="panel-code">  Nx     population count</text>
+  <text x="2112" y="214" class="panel-code">  objects: gbd_epi_5yr, gbd_acm_5yr, gbd_pop_5yr</text>
+  <text x="2112" y="226" class="panel-code">  fn: read_csv_from_zip(), calc_metric_dt()</text>
+
+  <!-- GBD 2023 subsection -->
+  <text x="2112" y="244" class="panel-sec">GBD 2023 Fertility Data</text>
+  <text x="2112" y="258" class="panel-code">  fx     age-specific fertility rate (ASFR)</text>
+  <text x="2112" y="270" class="panel-code">  object: gbd_frt_1yr_interpolate</text>
+  <text x="2112" y="282" class="panel-code">  fn: zoo::na.approx() (1-yr interpolation)</text>
+
+  <!-- sim_scen_inputs subsection -->
+  <text x="2112" y="300" class="panel-sec-grn">sim_scen_inputs.xlsx</text>
+  <text x="2112" y="314" class="panel-code">  bsln_stg_dist   stage distribution (proportions)</text>
+  <text x="2112" y="326" class="panel-code">  cascade         screened, diagnosed, treated, completed</text>
+  <text x="2112" y="338" class="panel-code">  intv_modif_rr   treatment relative risks by cause</text>
+  <text x="2112" y="350" class="panel-code">  cost, oop       unit costs · OOP expense share</text>
+  <text x="2112" y="362" class="panel-code">  dw_stg          disability weights by stage</text>
+  <text x="2112" y="374" class="panel-code">  fn: read_sim_param(), process_intv_scen_inputs()</text>
+  <text x="2112" y="395" class="src-text">  Note: pcsDi = cmx/acmx  ·  bgmx = acmx − acmx×pcsDi</text>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- BOX B: KEY MODEL EQUATIONS -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="2102" y="426" width="590" height="228" rx="6" ry="6" fill="#EAFAF1" stroke="#239B56" stroke-width="1.5"/>
+  <text x="2112" y="444" class="panel-title" fill="#239B56">B. KEY MODEL EQUATIONS</text>
+  <line x1="2102" y1="450" x2="2692" y2="450" stroke="#239B56" stroke-width="1"/>
+
+  <text x="2112" y="466" class="panel-body" font-weight="700">Derived parameters:</text>
+  <text x="2112" y="480" class="panel-code">  bgmx  = acmx − (acmx × pcsDi)</text>
+  <text x="2112" y="492" class="panel-code">  pcsDi = cmx / acmx</text>
+
+  <text x="2112" y="510" class="panel-body" font-weight="700">Markov state update (per year t):</text>
+  <text x="2112" y="524" class="panel-code">  state_vec(t+1) = state_vec(t) × TPM(age, t)</text>
+
+  <text x="2112" y="542" class="panel-body" font-weight="700">Counts from state proportions:</text>
+  <text x="2112" y="556" class="panel-code">  cancer_deaths = Σ stage_prop × Nx × cmx</text>
+  <text x="2112" y="568" class="panel-code">  new_cases     = pwell × Nx × cix</text>
+  <text x="2112" y="580" class="panel-code">  other_deaths  = Nx × bgmx</text>
+
+  <text x="2112" y="598" class="panel-body" font-weight="700">CCPM demographic update:</text>
+  <text x="2112" y="612" class="panel-code">  Nx(t+1) = run_ccpm(Nx(t), mx, fx)</text>
+
+  <text x="2112" y="630" class="panel-body" font-weight="700">Intervention TP modification:</text>
+  <text x="2112" y="644" class="panel-code">  TP_intv = TP_bsln × RR_treatment</text>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- BOX C: MODEL SCOPE -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="2102" y="672" width="590" height="340" rx="6" ry="6" fill="#FEF9E7" stroke="#d35400" stroke-width="1.5"/>
+  <text x="2112" y="690" class="panel-title" fill="#d35400">C. MODEL SCOPE</text>
+  <line x1="2102" y1="696" x2="2692" y2="696" stroke="#d35400" stroke-width="1"/>
+
+  <text x="2112" y="714" class="panel-body" font-weight="700">TRACKS:</text>
+  <text x="2112" y="728" class="panel-yes">  ✓ Stage progression: pwell → pprc/plcl → prgn → pdst → pcdx</text>
+  <text x="2112" y="742" class="panel-yes">  ✓ Cancer-specific mortality (cmx) per stage, per cause</text>
+  <text x="2112" y="756" class="panel-yes">  ✓ Background mortality (bgmx) separately from cancer mortality</text>
+  <text x="2112" y="770" class="panel-yes">  ✓ Treatment adherence scale-up (RR applied to TPs)</text>
+  <text x="2112" y="784" class="panel-yes">  ✓ Population dynamics — CCPM (2020–2050)</text>
+  <text x="2112" y="798" class="panel-yes">  ✓ Financial risk protection (OOP · fn: frp_fnx.R)</text>
+  <text x="2112" y="812" class="panel-yes">  ✓ 16 cancer types × 5-yr age groups × sex × year</text>
+
+  <text x="2112" y="832" class="panel-body" font-weight="700">DOES NOT TRACK:</text>
+  <text x="2112" y="846" class="panel-no">  ✗ Remission or recurrence</text>
+  <text x="2112" y="860" class="panel-no">  ✗ Competing cancers simultaneously within one trace</text>
+  <text x="2112" y="874" class="panel-no">  ✗ Prevention interventions (noted, not yet implemented)</text>
+  <text x="2112" y="888" class="panel-no">  ✗ Palliative care costs (noted, not yet implemented)</text>
+  <text x="2112" y="902" class="panel-no">  ✗ Migration effects in CCPM</text>
+
+  <text x="2112" y="924" class="panel-sec-org">Cancer categories (TP structure):</text>
+  <text x="2112" y="938" class="panel-code">  Cat. 1 (11 types): Well → Local → Dead</text>
+  <text x="2112" y="950" class="panel-code">  Cat. 2 (3 types):  Well → Local → Regional → Distant → Dead</text>
+  <text x="2112" y="962" class="panel-code">  Cat. 3 (2 types):  Well → Precancer → Local → Regional → Distant → Dead</text>
+  <text x="2112" y="974" class="panel-code">  (Cervical, Colorectal = Cat. 3; Breast, Prostate, Lung = Cat. 2)</text>
+  <text x="2112" y="998" class="src-text">  TP row constraint: Σ(row) = 1 · enforced by correct_markov()</text>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- BOX D: SCRIPT PIPELINE -->
+  <!-- ─────────────────────────────────────────── -->
+  <rect x="2102" y="1030" width="590" height="358" rx="6" ry="6" fill="#FADBD8" stroke="#922B21" stroke-width="1.5"/>
+  <text x="2112" y="1048" class="panel-title" fill="#922B21">D. SCRIPT PIPELINE</text>
+  <line x1="2102" y1="1054" x2="2692" y2="1054" stroke="#922B21" stroke-width="1"/>
+
+  <text x="2112" y="1072" class="panel-sec-red">00_read_data.R</text>
+  <text x="2112" y="1084" class="panel-code">  → all-param.RData, gbd_dt.RData</text>
+  <text x="2112" y="1096" class="panel-code">  fn: read_csv_from_zip(), calc_metric_dt()</text>
+
+  <text x="2112" y="1114" class="panel-sec-red">01_process_country_param.R</text>
+  <text x="2112" y="1126" class="panel-code">  → {country}_param.RData  (Nx, cix, cpx, cmx, acmx)</text>
+  <text x="2112" y="1138" class="panel-code">  fn: calc_metric_dt(), extract_tp_primers_updt(), correct_markov()</text>
+
+  <text x="2112" y="1156" class="panel-sec-red">02_process_bsln_scen.R</text>
+  <text x="2112" y="1168" class="panel-code">  → bsln_tps (TPM per age×sex×year×cause)</text>
+  <text x="2112" y="1180" class="panel-code">  → bsln_markov_trace (pwell/pprc/plcl/prgn/pdst/pcdx/pbgdx)</text>
+  <text x="2112" y="1192" class="panel-code">  fn: calc_bsln_tps_dt(), calc_indiv_tp_cat(), expand_tps_years_dt()</text>
+  <text x="2112" y="1204" class="panel-code">      calc_start_hstate_dist_dt(), project_markov_trace_dt()</text>
+
+  <text x="2112" y="1222" class="panel-sec-red">03_process_pop_proj_bsln_dt.R</text>
+  <text x="2112" y="1234" class="panel-code">  → bsln_pop_projection  (Nx × age × sex × year · 2020–2050)</text>
+  <text x="2112" y="1246" class="panel-code">  fn: proj_ccpm_markov(), run_ccpm(), gen_lifetable()</text>
+
+  <text x="2112" y="1264" class="panel-sec-red">04_process_intv_scen.R</text>
+  <text x="2112" y="1276" class="panel-code">  → intv_tps, intv_markov_trace</text>
+  <text x="2112" y="1288" class="panel-code">  fn: process_intv_scen_inputs(), calc_intv_tps(), correct_markov()</text>
+
+  <text x="2112" y="1306" class="panel-sec-red">05_process_pop_proj_intv_dt.R</text>
+  <text x="2112" y="1318" class="panel-code">  → intv_pop_projection</text>
+  <text x="2112" y="1330" class="panel-code">  fn: proj_ccpm_markov(), run_ccpm()</text>
+
+  <text x="2112" y="1348" class="panel-sec-red">06_dissertation_output.R</text>
+  <text x="2112" y="1360" class="panel-code">  → deaths averted, costs, ICERs, poverty impact</text>
+  <text x="2112" y="1372" class="panel-code">  fn: calc_epi_rates_markov(), calc_markov_state_deltas_dt()</text>
+  <text x="2112" y="1384" class="panel-code">      calc_pov(), sim_gni_gini(), frp_fnx.R</text>
+
+  <!-- ============================================================ -->
   <!-- Footer / global note -->
-  <rect x="30" y="1620" width="2040" height="50" rx="6" ry="6" fill="#FBFCFC" stroke="#bdc3c7"/>
-  <text x="45" y="1642" class="node-text" font-weight="700">Workflow:</text>
-  <text x="115" y="1642" class="node-text">Step 1 (Data prep) → Step 2 (Starting values) → Step 3 (TPs / TPM) → Step 4 (Markov Trace) → Step 5 (CCPM projection) → Step 6 (Economic evaluation)</text>
-  <text x="45" y="1660" class="node-text-small">Markov horizon 2000–2050 · Population projection 2020–2050 · Baseline holds 2019 TPs constant · Current version focuses on cancer treatment interventions (prevention &amp; palliation noted but not yet implemented).</text>
+  <!-- ============================================================ -->
+  <rect x="30" y="1628" width="2660" height="50" rx="6" ry="6" fill="#FBFCFC" stroke="#bdc3c7"/>
+  <text x="45" y="1648" class="node-text" font-weight="700">Workflow:</text>
+  <text x="115" y="1648" class="node-text">Step 1 (Data prep) → Step 2 (Starting values) → Step 3 (TPs / TPM) → Step 4 (Markov Trace) → Step 5 (CCPM projection) → Step 6 (Economic evaluation)</text>
+  <text x="45" y="1666" class="node-text-small">Markov horizon 2000–2050 · Population projection 2020–2050 · Baseline holds 2019 TPs constant · Current version focuses on cancer treatment interventions (prevention &amp; palliation noted but not yet implemented).</text>
 
 </svg>
 </div>
@@ -760,7 +991,7 @@
 (function () {
   var canvas = document.getElementById('canvas');
   var viewport = document.getElementById('viewport');
-  var state = { x: 40, y: 20, scale: 0.65 };
+  var state = { x: 40, y: 20, scale: 0.55 };
   var isDragging = false;
   var startX = 0, startY = 0, startTx = 0, startTy = 0;
 
@@ -801,7 +1032,6 @@
     var factor = delta > 0 ? 1.1 : 0.9;
     var newScale = Math.min(4, Math.max(0.15, oldScale * factor));
 
-    // zoom around cursor
     state.x = mx - ((mx - state.x) * (newScale / oldScale));
     state.y = my - ((my - state.y) * (newScale / oldScale));
     state.scale = newScale;
@@ -817,7 +1047,7 @@
     apply();
   });
   document.getElementById('reset').addEventListener('click', function () {
-    state.x = 40; state.y = 20; state.scale = 0.65;
+    state.x = 40; state.y = 20; state.scale = 0.55;
     apply();
   });
 })();
