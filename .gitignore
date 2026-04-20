@@ -21,3 +21,5 @@ R/inputs/gbd_dt.RData
 R/inputs/all-param.RData
 R/outputs/age_models_dt.rdb
 Random/Cancer model comparisons.xlsx
+
+.claude/worktrees/
